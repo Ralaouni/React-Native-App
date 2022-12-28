@@ -7,6 +7,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import GenerateExcel from '../App/generateExcel';
 
+
+
 export default function MyMenu() {
 
 
@@ -20,7 +22,7 @@ export default function MyMenu() {
 
     Alert.alert(
       '',
-      'It is recommended to send an excel before deleting all',  
+      'Il est recommandé de générer un fichier excel avant de tout supprimer',  
       [
          {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
          {text: 'Delete', onPress: () => {
@@ -36,8 +38,6 @@ export default function MyMenu() {
 
   }
 
-
-
   return (
     <View style={{ height: '5%', alignSelf: 'flex-end', marginTop: 15, position: 'absolute' }}>
       <Menu
@@ -46,7 +46,7 @@ export default function MyMenu() {
         onRequestClose={hideMenu}
       >
         <MenuItem onPress={hideMenu}><GenerateExcel/></MenuItem>
-        <MenuItem onPress={hideMenu}>change Time</MenuItem>
+        <MenuItem onPress={hideMenu}>Reset les shift d'aujourd'hui</MenuItem>
         <MenuItem disabled>Disabled item</MenuItem>
         <MenuDivider />
         <MenuItem onPress={deleteAll}>Delete all</MenuItem>

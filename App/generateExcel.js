@@ -39,6 +39,6 @@ export default function GenerateExcel() {
   },[data])
 
     return (
-        <Button title='generate excel' onPress={getData}/>
+        getData
     )
 }
