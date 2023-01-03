@@ -12,7 +12,7 @@ export default function Functions() {
   // Nombre de shift
   // La durée de la journée entière
 
-  // set End ?
+  //  set End ?
   //  set Time ? 
   //  set Data 
 
@@ -35,10 +35,9 @@ export default function Functions() {
   const [shift_2_Time, setShift_2_Time] = useState(0);
 
   const [jour_Complet, setJour_Complet] = useState(true);
-  const [data, setData] = useState('');
+  // const [data, setData] = useState('');
 
   const [showPrompt, setShowPrompt] = useState(false);
-  const [time, setTime] = useState(new Date());
 
   const [selectedHour, setSelectedHour] = useState('12');
   const [selectedMinute, setSelectedMinute] = useState('00');
@@ -79,9 +78,7 @@ export default function Functions() {
         console.log('error :' + e)
       }
     }
-
     storeData()
-
   }
 
   function timeChangeStart() {
@@ -101,6 +98,7 @@ export default function Functions() {
       setShift_1_End (selectedTime)
     } else {
       setShift_2_End (selectedTime)
+      setEnd(true)
     }
     setShiftEnd((Number(selectedHour)*60) + (Number(selectedMinute)))
     settextValue("Start")
@@ -153,7 +151,6 @@ export default function Functions() {
     setNewShift(false)
     setJour_Complet(true)
     setEnd(false)
-    setData('')
   }
   
   function newShiftreset () {
@@ -177,12 +174,10 @@ export default function Functions() {
     const date = new Date()
     if (count === 1) {
       const formatedTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`
-      // setShift_1_Time(( hours < 10 ? '0':'') + hours + ':' + (minutes < 10 ? '0':'') + minutes)
       setShift_1_Time(formatedTime)
     } else {
       const formatedTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`
       setShift_2_Time(formatedTime)
-      // setShift_2_Time(( hours < 10 ? '0':'') + hours + ':' + (minutes < 10 ? '0':'') + minutes)
     }
   },[shiftEnd]);
 
@@ -214,24 +209,6 @@ export default function Functions() {
   return (
 
         <View style={styles.morningShift}>
-
-
-          {end ? null : <View style={styles.button_View}>
-            {newShift ? <TouchableOpacity
-              style={styles.button_Principal}
-              onPress={newShiftreset}
-              accessibilityLabel="Button to start a new Shift"
-            >
-             <Text style={styles.button_Text}>New Shift</Text>
-            </TouchableOpacity> : 
-            <TouchableOpacity
-              style={styles.button_Principal}
-              onPress={Timestamp}
-              accessibilityLabel="Button to start or end the shift"
-            >
-              <Text style={styles.button_Text}>{textValue}</Text>
-            </TouchableOpacity>}
-          </View>}
 
           <Modal visible={showPrompt}>
             <View>
@@ -269,28 +246,44 @@ export default function Functions() {
               if (textValue === 'Start'){
                 setShowPrompt(true)
               }
-            }} style={styles.start_end_text}>START{"\n"} {shift_1_Begin}</Text> :  <Text onPress={() => {
+            }} style={styles.start_end_text}>DEBUT{"\n"} {shift_1_Begin}</Text> :  <Text onPress={() => {
               if (textValue === 'Start'){
                 setShowPrompt(true)
               }
-            }} style={styles.start_end_text}>START{"\n"} {shift_2_Begin} </Text>}
+            }} style={styles.start_end_text}>DEBUT{"\n"} {shift_2_Begin} </Text>}
 
             {count === 1 ?  <Text onPress={() => {
               if (textValue === 'End'){
                 setShowPrompt(true)
               } 
-            }} style={styles.start_end_text}>END{"\n"} {shift_1_End} </Text> :  <Text onPress={() => {
+            }} style={styles.start_end_text}>FIN{"\n"} {shift_1_End} </Text> :  <Text onPress={() => {
               if (textValue === 'End'){
                 setShowPrompt(true)
               } 
-            }} style={styles.start_end_text}>END{"\n"} {shift_2_End}</Text>}
+            }} style={styles.start_end_text}>FIN{"\n"} {shift_2_End}</Text>}
           </View>
 
           <View>
             {count === 1 ?  <Text style={styles.sectionTitle}>TOTAL{"\n"} {shift_1_Time}</Text> :  <Text style={styles.sectionTitle}>TOTAL{"\n"} {shift_2_Time}</Text>}
           </View>
 
-          <View><Text>{totalAllShift}</Text></View>
+          {end ? null : <View style={styles.button_View}>
+            {newShift ? <TouchableOpacity
+              style={styles.button_Principal}
+              onPress={newShiftreset}
+              accessibilityLabel="Button to start a new Shift"
+            >
+             <Text style={styles.button_Text}>Nouveau Shift</Text>
+            </TouchableOpacity> : 
+            <TouchableOpacity
+              style={styles.button_Principal}
+              onPress={Timestamp}
+              accessibilityLabel="Button to start or end the shift"
+            >
+              <Text style={styles.button_Text}>{textValue}</Text>
+            </TouchableOpacity>}
+          </View>}
+          
 
           <View style={styles.button_View}>
             {jour_Complet ? <TouchableOpacity
@@ -302,7 +295,7 @@ export default function Functions() {
               style={styles.button_Secondaire}
               onPress={DayEnd}
               accessibilityLabel="End the day and POST all shifts"
-            ><Text style={styles.button_Text}>Day END</Text></TouchableOpacity>
+            ><Text style={styles.button_Text}>Fin de Journée</Text></TouchableOpacity>
           </View>
         </View>
   );
@@ -335,8 +328,8 @@ const styles = StyleSheet.create({
     
   },
   button_Principal: {
-    height:100,
-    width:100,
+    height:120,
+    width:120,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
@@ -356,6 +349,7 @@ const styles = StyleSheet.create({
     borderRadius:100
   },
   button_Text:{
-    color:'white'
+    color:'white',
+    textAlign:'center',
   }
 });

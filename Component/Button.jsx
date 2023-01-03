@@ -7,9 +7,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import GenerateExcel from '../App/generateExcel';
 
-
+import Functions from './Function';
 
 export default function MyMenu() {
+
+  Functions
 
 
   const [visible, setVisible] = useState(false);
@@ -39,10 +41,10 @@ export default function MyMenu() {
   }
 
   return (
-    <View style={{ height: '5%', alignSelf: 'flex-end', marginTop: 15, position: 'absolute' }}>
+    <View style={{ height: '5%', alignSelf: 'flex-end', marginTop: 22, position: 'absolute', paddingRight: 15 }}>
       <Menu
         visible={visible}
-        anchor={<Text onPress={showMenu}>Show menu</Text>}
+        anchor={<Text onPress={showMenu}>Menu</Text>}
         onRequestClose={hideMenu}
       >
         <MenuItem onPress={hideMenu}><GenerateExcel/></MenuItem>

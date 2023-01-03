@@ -30,6 +30,8 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     marginTop:20,
+    marginBottom:20,
     textAlign:'center',
+    fontSize: 20,
   },
 });
