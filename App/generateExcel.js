@@ -25,7 +25,7 @@ export default function GenerateExcel() {
       let wb = XLSX.utils.book_new();
       let ws = XLSX.utils.aoa_to_sheet(data);
   
-      XLSX.utils.book_append_sheet(wb,ws,"CDSA 2022", true);
+      XLSX.utils.book_append_sheet(wb,ws,"excelShifterPro", true);
   
       const base64 = XLSX.write(wb, { type: "base64" });
       const filename = FileSystem.documentDirectory + "ShifterPro.xlsx";

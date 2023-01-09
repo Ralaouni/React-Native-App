@@ -7,12 +7,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import GenerateExcel from '../App/generateExcel';
 
-import Functions from './Function';
+export default function MyMenu(maFonction) {
 
-export default function MyMenu() {
-
-  Functions
-
+  
 
   const [visible, setVisible] = useState(false);
 
@@ -41,14 +38,14 @@ export default function MyMenu() {
   }
 
   return (
-    <View style={{ height: '5%', alignSelf: 'flex-end', marginTop: 22, position: 'absolute', paddingRight: 15 }}>
+    <View style={{ height: '5%', alignSelf: 'flex-end', marginTop: -50, position: 'absolute', paddingRight: 15, }}>
       <Menu
         visible={visible}
         anchor={<Text onPress={showMenu}>Menu</Text>}
         onRequestClose={hideMenu}
       >
         <MenuItem onPress={hideMenu}><GenerateExcel/></MenuItem>
-        <MenuItem onPress={hideMenu}>Reset les shift d'aujourd'hui</MenuItem>
+        <MenuItem onPress={() => maFonction}>Reset les shift d'aujourd'hui</MenuItem>
         <MenuItem disabled>Disabled item</MenuItem>
         <MenuDivider />
         <MenuItem onPress={deleteAll}>Delete all</MenuItem>

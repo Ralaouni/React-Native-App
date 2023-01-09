@@ -1,11 +1,11 @@
-
-
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Modal, TextInput, Alert } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Picker } from '@react-native-picker/picker';
+
+import MyMenu from './Button';
 
 export default function Functions() {
 
@@ -16,6 +16,7 @@ export default function Functions() {
   //  set Time ? 
   //  set Data 
 
+
   const [shiftBegin, setShiftBegin] = useState(0);
   const [shiftEnd, setShiftEnd] = useState(0);
   const [textValue, settextValue] = useState("Start");
@@ -23,8 +24,8 @@ export default function Functions() {
 
   const [totalAllShift, setTotalAllShift] = useState(0);
 
-  const [newShift, setNewShift] = useState(false)
-  const [end, setEnd] = useState(false)
+  const [newShift, setNewShift] = useState(false);
+  const [end, setEnd] = useState(false);
 
   const [shift_1_Begin, setShift_1_Begin] = useState(0);
   const [shift_1_End, setShift_1_End] = useState(0);
@@ -36,7 +37,6 @@ export default function Functions() {
 
   const [jour_Complet, setJour_Complet] = useState(true);
   // const [data, setData] = useState('');
-
   const [showPrompt, setShowPrompt] = useState(false);
 
   const [selectedHour, setSelectedHour] = useState('12');
@@ -73,7 +73,7 @@ export default function Functions() {
         alldata.push(dataArray)
         let jsonAllData = JSON.stringify(alldata)
         await AsyncStorage.setItem('@storage_Key',jsonAllData)
-        .then(()=> resetall())
+        .then(()=> resetAll())
       } catch (e) {
         console.log('error :' + e)
       }
@@ -104,6 +104,22 @@ export default function Functions() {
     settextValue("Start")
     setNewShift(true)
     setShowPrompt(false)
+  }
+
+  const resetAll = () => {
+    setCount (1)
+    settextValue("Start")
+    setShiftBegin(0)
+    setShift_1_Begin(0)
+    setShift_1_End(0)
+    setShift_1_Time(0)
+    setShift_2_Begin(0)
+    setShift_2_End(0)
+    setShift_2_Time(0)
+    setShiftEnd(0)
+    setNewShift(false)
+    setJour_Complet(true)
+    setEnd(false)
   }
 
 
@@ -137,21 +153,7 @@ export default function Functions() {
     
   }
 
-  function resetall () {
-    setCount (1)
-    settextValue("Start")
-    setShiftBegin(0)
-    setShift_1_Begin(0)
-    setShift_1_End(0)
-    setShift_1_Time(0)
-    setShift_2_Begin(0)
-    setShift_2_End(0)
-    setShift_2_Time(0)
-    setShiftEnd(0)
-    setNewShift(false)
-    setJour_Complet(true)
-    setEnd(false)
-  }
+
   
   function newShiftreset () {
     setCount(count + 1)
@@ -182,14 +184,14 @@ export default function Functions() {
   },[shiftEnd]);
 
   useEffect (() => {
-    let hours1 = Number(shift_1_Time.toString().slice(0,2))
-    let minutes1 = Number(shift_1_Time.toString().slice(3,5))
+    const hours1 = Number(shift_1_Time.toString().slice(0,2))
+    const minutes1 = Number(shift_1_Time.toString().slice(3,5))
 
-    let hours2 = Number(shift_2_Time.toString().slice(0,2))
-    let minutes2 = Number(shift_2_Time.toString().slice(3,5))
+    const hours2 = Number(shift_2_Time.toString().slice(0,2))
+    const minutes2 = Number(shift_2_Time.toString().slice(3,5))
 
-    let hourstot = hours1+hours2
-    let minutestot = minutes1+minutes2
+    const hourstot = hours1+hours2
+    const minutestot = minutes1+minutes2
 
     if (minutestot >= 60) {
       minutestot = minutestot -60 
@@ -198,17 +200,16 @@ export default function Functions() {
 
     const formatedTime = `${hourstot < 10 ? '0' : ''}${hourstot}:${minutestot < 10 ? '0' : ''}${minutestot}`
 
-
     setTotalAllShift(formatedTime)
 
-  },[shift_1_Time, shift_2_Time])
-
-
+  },[shift_1_Time, shift_2_Time]);
 
   
   return (
 
         <View style={styles.morningShift}>
+
+          <MyMenu maFonction={resetAll}/>
 
           <Modal visible={showPrompt}>
             <View>
@@ -328,8 +329,8 @@ const styles = StyleSheet.create({
     
   },
   button_Principal: {
-    height:120,
-    width:120,
+    height:110,
+    width:110,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,

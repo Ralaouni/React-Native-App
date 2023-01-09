@@ -1,9 +1,8 @@
 
 import { StyleSheet, Text, View } from 'react-native';
 
-import MyMenu from './Component/Button';
-
 import Functions from './Component/Function';
+
 
 
 export default function App() {
@@ -12,8 +11,6 @@ export default function App() {
     <View style={styles.container}>
     
         <Text style={styles.sectionTitle}>Shifter Pro</Text>
-
-        <MyMenu/>
 
         <Functions/>
         
